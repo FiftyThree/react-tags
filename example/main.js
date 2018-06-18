@@ -14,7 +14,10 @@ class App extends React.Component {
         { id: 184, name: 'Thailand' },
         { id: 86, name: 'India' }
       ],
-      suggestions
+      suggestions,
+      classNames: {
+        input: 'tara-input',
+      }
     }
   }
 
@@ -29,14 +32,21 @@ class App extends React.Component {
     this.setState({ tags })
   }
 
+  handleBlur () {
+    this.tags.clearQuery()
+  }
+
   render () {
     return (
       <div>
         <Tags
+          ref={(c) => { this.tags = c }}
           tags={this.state.tags}
           suggestions={this.state.suggestions}
           handleDelete={this.handleDelete.bind(this)}
-          handleAddition={this.handleAddition.bind(this)} />
+          handleAddition={this.handleAddition.bind(this)}
+          handleBlur={this.handleBlur.bind(this)}
+          classNames={this.state.classNames}/>
         <hr />
         <pre><code>{JSON.stringify(this.state.tags, null, 2)}</code></pre>
       </div>
